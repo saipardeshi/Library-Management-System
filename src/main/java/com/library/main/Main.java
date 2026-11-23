@@ -14,11 +14,14 @@ public class Main {
         MemberDAO memberDAO = new MemberDAO();
         BookIssueDAO issueDAO = new BookIssueDAO();
 
-        Long book1Id = bookDAO.save(new Book("Clean Code", "Robert C. Martin", "ISBN001"));
-        Long book2Id = bookDAO.save(new Book("Effective Java", "Joshua Bloch", "ISBN002"));
+        // ISBN and email are unique columns, so add a per-run suffix to keep the demo re-runnable.
+        String runId = Long.toString(System.currentTimeMillis(), 36);
+
+        Long book1Id = bookDAO.save(new Book("Clean Code", "Robert C. Martin", "ISBN001-" + runId));
+        Long book2Id = bookDAO.save(new Book("Effective Java", "Joshua Bloch", "ISBN002-" + runId));
         System.out.println("Books added.");
 
-        Long memberId = memberDAO.save(new Member("Harry Patil", "harry@example.com"));
+        Long memberId = memberDAO.save(new Member("Harry Patil", "harry+" + runId + "@example.com"));
         System.out.println("Member added.");
 
         System.out.println("\n--- All Books ---");
